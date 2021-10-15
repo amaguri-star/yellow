@@ -10,7 +10,8 @@
                     <h2 class="card-title">ログイン</h2>
                     <hr>
                     <div class="card-text">
-                        <form action="" method="POST">
+                        <form action="{{ route('auth.login') }}" method="POST">
+                            @csrf
                             <div class="md-form">
                                 <input type="email" id="email" name="email" class="form-control">
                                 <label for="email">E-mail</label>
@@ -24,9 +25,9 @@
                             <div class="text-left">
                                 <a href="#" class="card-text">パスワードを忘れた方はこちらから</a>
                             </div>
+                            <button type="submit" class="btn btn-primary">ログイン</button>
                         </form>
                     </div>
-                    <button type="button" class="btn btn-primary">ログイン</button>
                     <div class="mt-2">
                         <a href="{{ route('auth.register') }}" class="card-text">サインアップはこちらから</a>
                     </div>
