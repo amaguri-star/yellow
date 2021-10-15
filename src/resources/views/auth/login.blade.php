@@ -12,12 +12,12 @@
                     <div class="card-text">
                         <form action="" method="POST">
                             <div class="md-form">
-                                <input type="email" id="email" class="form-control">
+                                <input type="email" id="email" name="email" class="form-control">
                                 <label for="email">E-mail</label>
                             </div>
 
                             <div class="md-form">
-                                <input type="password" id="password" class="form-control">
+                                <input type="password" id="password" name="password" class="form-control">
                                 <label for="password">Password</label>
                             </div>
 
