@@ -17,7 +17,7 @@
                         <a class="nav-link" aria-current="page" href="{{ route('auth.register') }}">ユーザー登録</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('auth.register') }}">ログイン</a>
+                        <a class="nav-link" href="{{ route('auth.login') }}">ログイン</a>
                     </li>
                 @endguest
 

@@ -13,25 +13,23 @@
                     <div class="card-text">
                         <form action="{{ route('auth.register') }}" method="POST">
                             @csrf
-                            <div class="md-form">
-                                <input type="text" id="name" name="name" class="form-control" required>
-                                <label for="name">username</label>
+                            <div class="md-form mb-4">
+                                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"
+                                    placeholder="username" required>
                             </div>
 
-                            <div class="md-form">
-                                <input type="email" id="email" name="email" class="form-control" required>
-                                <label for="email">E-mail</label>
+                            <div class="md-form mb-4">
+                                <input type="email" id="email" name="email" class="form-control"
+                                    value="{{ old('email') }}" placeholder="email" required>
                             </div>
 
-                            <div class="md-form">
-                                <input type="password" id="password" name="password" class="form-control" required>
-                                <label for="password">Password</label>
+                            <div class="md-form mb-4">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
                             </div>
 
-                            <div class="md-form">
+                            <div class="md-form mb-4">
                                 <input type="password" id="password_confirmation" name="password_confirmation"
-                                    class="form-control" required>
-                                <label for="password_confirmation">Password(confirmation)</label>
+                                    class="form-control" placeholder="password_confirmation" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary">サインアップ</button>

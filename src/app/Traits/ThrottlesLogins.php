@@ -7,9 +7,25 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 trait ThrottlesLogins
 {
+
+    protected function hasTooManyLoginAttempts(Request $request)
+    {
+        return $this->limiter()->tooManyAttempts(
+            $this->throttleKey($request), 5
+        );
+    }
+
+    protected function incrementLoginAttempts($request)
+    {
+        $this->limiter()->hit(
+            $this->throttleKey($request), 60
+        );
+    }
+
     protected function sendLockoutResponse(Request $request)
     {
         $seconds = $this->limiter()->availableIn($this->throttleKey($request));
@@ -20,6 +36,11 @@ trait ThrottlesLogins
                 'minute' => ceil($seconds / 60),
             ])],
         ])->status(Response::HTTP_TOO_MANY_REQUESTS);
+    }
+
+    protected function clearLoginAttempts(Request $request)
+    {
+        $this->limiter()->clear($this->throttleKey($request));
     }
 
     protected function throttleKey(Request $request)
