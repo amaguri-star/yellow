@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\AuthenticatesUsers;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
-{   
+{
+    use AuthenticatesUsers;
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -24,7 +27,7 @@ class LoginController extends Controller
 
         if (RateLimiter::tooManyAttemps('login-attempts' . $request->email, 3)) {
             event(new Lockout($request));
-            // return 
+            return $this->sendLockoutResponse();
         }
 
     }
