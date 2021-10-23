@@ -30,6 +30,7 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertFalse(Auth::check());
+        $this->get('/login');
 
         $response = $this->post('/login', [
             'email' => $user->email,
@@ -37,6 +38,28 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertTrue(Auth::check());
-        $response->assertRedirect('/');
+        $response->assertRedirect(route('home'));
     }
+
+    public function test_user_can_not_login_with_incorrect_credentials()
+    {
+        $user = User::factory()->create([
+            'password' => bcrypt('i-love-laravel'),
+        ]);
+
+        $this->assertFalse(Auth::check());
+        $this->get('/login');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'i-do-not-love-laravel',
+        ]);
+
+        $this->assertFalse(Auth::check());
+        $response->assertSessionHasErrors([
+            'email' => trans('auth.failed'),
+        ]);
+        $response->assertRedirect(route('auth.login'));
+    }
+
 }
