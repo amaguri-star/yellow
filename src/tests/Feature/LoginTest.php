@@ -11,6 +11,14 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp() :void
+    {
+        parent::setUp();
+        $this->user = User::factory()->create([
+            'password' => bcrypt('i-love-laravel'),
+        ]);
+    }
+    
     /**
      * A basic feature test example.
      *
@@ -25,15 +33,11 @@ class LoginTest extends TestCase
 
     public function test_user_can_login_with_correct_credentials()
     {
-        $user = User::factory()->create([
-            'password' => bcrypt('i-love-laravel'),
-        ]);
-
         $this->assertFalse(Auth::check());
         $this->get('/login');
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => 'i-love-laravel',
         ]);
 
@@ -41,17 +45,13 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('home'));
     }
 
-    public function test_user_can_not_login_with_incorrect_credentials()
+    public function test_user_cannot_login_with_incorrect_credentials()
     {
-        $user = User::factory()->create([
-            'password' => bcrypt('i-love-laravel'),
-        ]);
-
         $this->assertFalse(Auth::check());
         $this->get('/login');
 
         $response = $this->post('/login', [
-            'email' => $user->email,
+            'email' => $this->user->email,
             'password' => 'i-do-not-love-laravel',
         ]);
 
@@ -62,4 +62,9 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('auth.login'));
     }
 
+    // public function test_user_cannot_request_because_attempts_is_over()
+    // {
+    //     $this->assertFalse(Auth::check());
+    //     $this->get('/login');
+    // }
 }
