@@ -11,14 +11,14 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create([
             'password' => bcrypt('i-love-laravel'),
         ]);
     }
-    
+
     /**
      * A basic feature test example.
      *
@@ -62,9 +62,23 @@ class LoginTest extends TestCase
         $response->assertRedirect(route('auth.login'));
     }
 
-    // public function test_user_cannot_request_because_attempts_is_over()
-    // {
-    //     $this->assertFalse(Auth::check());
-    //     $this->get('/login');
-    // }
+    public function test_user_cannot_request_because_attempts_is_over()
+    {
+        $this->get('/login');
+        $this->assertFalse(Auth::check());
+        $response = "";
+
+        for ($i = 1; $i <= 6; $i++) {
+            $response = $this->post('/login', [
+                'email' => $this->user->email,
+                'password' => 'i-do-not-love-laravel',
+            ]);
+        }
+
+        $response->assertSessionHasErrors(['email']);
+        $er_msg = $response->getSession()->get("errors");
+        $this->assertMatchesRegularExpression(
+            '/Too many login attempts. Please try again in [0-9]+ seconds./', $er_msg
+        );
+    }
 }
