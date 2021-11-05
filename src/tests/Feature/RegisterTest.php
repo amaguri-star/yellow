@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -68,6 +69,48 @@ class RegisterTest extends TestCase
         $response->assertRedirect(route('auth.register'));
         $response->assertSessionHasErrors(['name']);
         $this->assertDataBaseMissing('users', ['name' => $name]);
+        $this->assertFalse(Auth::check());
+    }
+
+    public function test_validate_error_is_fired_when_user_table_already_has_same_username()
+    {
+        $this->get(route('auth.register'));
+        User::factory()->create(['name' => 'testuser']);
+        $this->assertDataBaseHas('users', ['name' => 'testuser']);
+        $response = $this->post(route('auth.register'), $this->user);
+        $response->assertRedirect(route('auth.register'));
+        $response->assertSessionHasErrors(['name']);
+        $this->assertFalse(Auth::check());
+    }
+
+    public function test_validate_error_is_fired_when_user_table_already_has_same_email()
+    {
+        $this->get(route('auth.register'));
+        User::factory()->create(['email' => $this->user['email']]);
+        $this->assertDataBaseHas('users', ['email' => $this->user['email']]);
+        $response = $this->post(route('auth.register'), $this->user);
+        $response->assertRedirect(route('auth.register'));
+        $response->assertSessionHasErrors(['email']);
+        $this->assertFalse(Auth::check());
+    }
+
+    public function test_validate_error_is_fired_when_password_is_less_than_eight()
+    {
+        $this->get(route('auth.register'));
+        $this->user['password'] = 'lsthan8';
+        $response = $this->post(route('auth.register'), $this->user);
+        $response->assertRedirect(route('auth.register'));
+        $response->assertSessionHasErrors(['password']);
+        $this->assertFalse(Auth::check());
+    }
+
+    public function test_validate_error_is_fired_when_password_confirmed_is_diffrent_from_password()
+    {
+        $this->get(route('auth.register'));
+        $this->user['password_confirmation'] = 'testuserpass02';
+        $response = $this->post(route('auth.register'), $this->user);
+        $response->assertRedirect(route('auth.register'));
+        $response->assertSessionHasErrors(['password']);
         $this->assertFalse(Auth::check());
     }
 }
