@@ -22,4 +22,5 @@ Route::post('/register', [RegisterController::class, 'register'])->name('auth.re
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/login', [LoginController::class, 'login'])->name('auth.login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
-// Route::get('/forgot-password', [ForgotPasswordController::class, ''])-name('password-request');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'showEmailForm'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.request');

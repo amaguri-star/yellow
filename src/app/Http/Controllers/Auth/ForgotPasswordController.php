@@ -7,5 +7,14 @@ use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
-    //
+    public function showEmailForm()
+    {
+        return view('auth.passwords.email');
+    }
+
+    public function sendResetLink(Request $request)
+    {
+        // 
+    }
+    
 }

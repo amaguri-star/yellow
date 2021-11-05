@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="text-left">
-                                <a href="#" class="card-text">パスワードを忘れた方はこちらから</a>
+                                <a href="{{ route('password.request') }}" class="card-text">パスワードを忘れた方はこちらから</a>
                             </div>
                             <input type="hidden" name="remember" id="remember" value="on">
                             <button type="submit" class="btn btn-primary">ログイン</button>
