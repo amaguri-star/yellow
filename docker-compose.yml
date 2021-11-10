@@ -52,3 +52,9 @@ services:
       TZ: 'Asia/Tokyo'
     volumes:
       - mysql-test-volume:/var/lib/mysql
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
