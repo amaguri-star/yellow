@@ -13,8 +13,8 @@
                     <div class="card-text">
                         <form action="{{ route('password.update') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="token" id="token" value="{{ $token }}">
-                            <input type="hidden" name="email" id="email" value="{{ $email }}">
+                            <input type="hidden" name="token" id="token" value="{{ $token }}" required>
+                            <input type="hidden" name="email" id="email" value="{{ $email }}" required>
                             <div class="md-form mb-4">
                                 <input type="password" id="password" name="password" class="form-control"
                                     placeholder="password" required>
