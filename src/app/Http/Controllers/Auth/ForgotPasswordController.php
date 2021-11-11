@@ -17,15 +17,25 @@ class ForgotPasswordController extends Controller
     {
         $request->validate(['email' => 'required|email']);
         $status = Password::sendResetLink($request->only('email'));
-        return $status === Password::RESET_LINK_SENT
-        ? back()->with(['status' => __('$status')])
-        : back()->withErrors(['email' => __($status)]);
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return back()->with(['status' => __($status)]);
+        } else {
+            return back()->withErrors(['email' => __($status)]);
+        }
     }
 
-    public function showResetPasswordForm(Request $request, $token)
+    public function showResetPasswordForm(Request $request, $token = null)
     {
-        return view('auth.passwords.reset-password', ['token' => $token]);
+        $email = $request->email;
+        return view('auth.passwords.reset-password', ['email' => $email, 'token' => $token]);
     }
 
-    
+    public function ResetPassword(Request $request)
+    {
+        dd($request);
+        // $request->validate([
+        //     'token' => 'required',
+        // ]);
+    }
 }

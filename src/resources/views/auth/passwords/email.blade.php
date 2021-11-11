@@ -1,15 +1,20 @@
 @extends('app')
 
-@section('title', 'パスワード再設定')
+@section('title', 'メールアドレス入力')
 
 @section('content')
     <div class="container mt-5">
         <div class="row d-flex justify-content-center">
             <div class="card col-7">
                 <div class="card-body text-center">
-                    <h2 class="card-title">パスワード再設定</h2>
+                    <h2 class="card-title">メールアドレスを入力</h2>
                     <hr>
                     @include('error_card_list')
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <div class="card-text">
                         <form action="{{ route('password.request') }}" method="POST">
                             @csrf
