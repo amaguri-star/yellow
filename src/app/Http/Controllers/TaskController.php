@@ -20,7 +20,7 @@ class TaskController extends Controller
 
     public function create()
     {
-        // add code later
+        return view('create_task');
     }
 
     public function show()
@@ -37,7 +37,7 @@ class TaskController extends Controller
     {
         // add code later
     }
-    
+
     public function edit()
     {
         // add code later
