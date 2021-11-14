@@ -3,6 +3,7 @@
 @section('title', '完了タスク一覧')
 
 @section('content')
+@include('flush_message')
 <div class="container my-5 px-5">
     @foreach ($tasks as $task)
         <div class="card mb-3">
