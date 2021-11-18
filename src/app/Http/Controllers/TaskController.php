@@ -28,25 +28,10 @@ class TaskController extends Controller
         return view('create_task');
     }
 
-    public function show()
-    {
-        // add code later
-    }
-
-    public function update()
-    {
-        // add code later
-    }
-
     public function destroy(Task $task)
     {
         $task->delete();
         return redirect()->route('tasks.index');
-    }
-
-    public function edit()
-    {
-        // add code later
     }
 
 }
