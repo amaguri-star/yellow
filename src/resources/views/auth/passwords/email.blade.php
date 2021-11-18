@@ -10,11 +10,6 @@
                     <h2 class="card-title">メールアドレスを入力</h2>
                     <hr>
                     @include('error_card_list')
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <div class="card-text">
                         <form action="{{ route('password.request') }}" method="POST">
                             @csrf
