@@ -38,9 +38,10 @@ class TaskController extends Controller
         // add code later
     }
 
-    public function destroy()
+    public function destroy(Task $task)
     {
-        // add code later
+        $task->delete();
+        return redirect()->route('tasks.index');
     }
 
     public function edit()

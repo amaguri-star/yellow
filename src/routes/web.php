@@ -3,8 +3,8 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\TaskController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +37,6 @@ Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgotPasswordController::class, 'ResetPassword'])->name('password.update');
 
 //resources for each controller
-Route::resources([
-    'tasks' => TaskController::class,
+Route::resource('tasks', TaskController::class)->only([
+    'index', 'store', 'create', 'destroy',
 ]);
