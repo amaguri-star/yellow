@@ -1,9 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="20" alt=""
-                loading="lazy" />
-        </a>
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
             data-mdb-target="#navbarRightAlignExample" aria-controls="navbarRightAlignExample" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -47,5 +43,46 @@
 
             </ul>
         </div>
+    </div>
+</nav> --}}
+<nav class="sidenav">
+    <div class="sidenav__wrapper">
+        <header class="sidenav__header">
+            <div class="sidenav__header__user d-flex">
+                <div class="sidenav__header__user__icon">
+                    <i class="fas fa-user-circle fa-3x"></i>
+                </div>
+                <div class="sidenav__header__user__info">
+                    <div class="sidenav__header__user__info__name">{{ Auth::user()->name }}</div>
+                    <div class="sidenav__header__user__info__rank">ランク: 7</div>
+                </div>
+            </div>
+        </header>
+        <hr class="mt-3 mb-3">
+        <main class="sidenav__main">
+            <div class="sidenav__main__wrapper">
+                <div class="sidenav__main__list">
+                    <a class="sidenav__main__list__link">
+                        <i class="sidenav__main__list__link__icon fas fa-tasks fa-lg"></i>
+                        タスク
+                    </a>
+                    <a class="sidenav__main__list__link">
+                        <i class="sidenav__main__list__link__icon far fa-comment-dots fa-lg"></i>
+                        チャット
+                    </a>
+                    <a class="sidenav__main__list__link">
+                        <i class="sidenav__main__list__link__icon far fa-sticky-note fa-lg"></i>
+                        記録
+                    </a>
+                    <a class="sidenav__main__list__link">
+                        <i class="sidenav__main__list__link__icon fas fa-sign-out-alt fa-lg"></i>
+                        ログアウト
+                    </a>
+                </div>
+            </div>
+        </main>
+        <footer class="sidenav__footer">
+
+        </footer>
     </div>
 </nav>

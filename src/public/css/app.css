@@ -1,0 +1,44 @@
+/* default settings */
+html {
+    font-size: 16px;
+}
+
+a {
+    display: block;
+}
+
+.sidenav {
+    width: 270px;
+    padding: 27px 15px;
+}
+
+/* sidenav header include user-info */
+.sidenav__header__user {
+    align-items: center;
+}
+
+.sidenav__header__user__info {
+    margin-left: 10px;
+}
+
+.sidenav__header__user__info__name {
+    font-size: 1.5rem;
+    height: auto;
+}
+
+.sidenav__header__user__info__rank {
+    font-size: 0.8rem;
+}
+
+/* sidenav main include links for directing other page*/
+.sidenav__main__list__link {
+    padding: 15px 10px;
+}
+
+.sidenav__main__list__link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidenav__main__list__link__icon {
+    padding-right: 13px;
+}
