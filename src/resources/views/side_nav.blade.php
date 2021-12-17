@@ -1,4 +1,4 @@
-<nav class="sidenav">
+<nav class="sidenav shadow-sm rounded">
     <div class="sidenav__wrapper">
         <header class="sidenav__header">
             <div class="sidenav__header__user d-flex">
@@ -15,15 +15,15 @@
         <main class="sidenav__main">
             <div class="sidenav__main__wrapper">
                 <div class="sidenav__main__list">
-                    <a class="sidenav__main__list__link">
+                    <a class="sidenav__main__list__link" href="{{ route('tasks.index') }}">
                         <i class="sidenav__main__list__link__icon fas fa-tasks fa-lg"></i>
                         タスク
                     </a>
-                    <a class="sidenav__main__list__link">
+                    <a class="sidenav__main__list__link" href="#">
                         <i class="sidenav__main__list__link__icon far fa-comment-dots fa-lg"></i>
                         チャット
                     </a>
-                    <a class="sidenav__main__list__link">
+                    <a class="sidenav__main__list__link" href="#">
                         <i class="sidenav__main__list__link__icon far fa-sticky-note fa-lg"></i>
                         記録
                     </a>
