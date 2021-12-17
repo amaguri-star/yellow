@@ -22,7 +22,9 @@
 <body>
     <div id="app">
         <div class="app-wrapper d-flex">
-            @include('side_nav')
+            @auth
+                @include('side_nav')
+            @endauth
             @yield('content')
         </div>
     </div>

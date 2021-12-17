@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 //HomeController
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
 // RegisterController
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('auth.register');

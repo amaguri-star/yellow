@@ -7,7 +7,13 @@ a {
     display: block;
 }
 
+a:hover {
+    color: inherit;
+}
+
 .sidenav {
+    height: 100vh;
+    
     width: 270px;
     padding: 27px 15px;
 }
@@ -32,11 +38,12 @@ a {
 
 /* sidenav main include links for directing other page*/
 .sidenav__main__list__link {
+    transition: background-color 0.3s;
     padding: 15px 10px;
 }
 
 .sidenav__main__list__link:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(10, 8, 8, 0.1);
 }
 
 .sidenav__main__list__link__icon {
