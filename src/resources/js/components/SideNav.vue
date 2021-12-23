@@ -42,8 +42,9 @@ export default {
         return {
             items: [
                 { title: "Home", icon: "mdi-home-city", link: "/" },
-                { title: "Task", icon: "mdi-account", link: "/tasks" },
-                { title: "Chat", icon: "mdi-account-group-outline", link: "#" },
+                { title: "Task", icon: "mdi-calendar-check-outline", link: "/tasks" },
+                { title: "Chat", icon: "mdi-chat-outline", link: "#" },
+                { title: "Logout", icon: "mdi-logout", link: "/logout"}
             ],
         };
     },

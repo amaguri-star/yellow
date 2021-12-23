@@ -2112,12 +2112,16 @@ __webpack_require__.r(__webpack_exports__);
         link: "/"
       }, {
         title: "Task",
-        icon: "mdi-account",
+        icon: "mdi-calendar-check-outline",
         link: "/tasks"
       }, {
         title: "Chat",
-        icon: "mdi-account-group-outline",
+        icon: "mdi-chat-outline",
         link: "#"
+      }, {
+        title: "Logout",
+        icon: "mdi-logout",
+        link: "/logout"
       }]
     };
   }
