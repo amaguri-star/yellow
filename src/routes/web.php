@@ -39,4 +39,4 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'ResetPassword'
 //resources for each controller
 Route::resource('tasks', TaskController::class)->only([
     'index', 'store', 'create', 'destroy',
-]);
+])->middleware('auth');
