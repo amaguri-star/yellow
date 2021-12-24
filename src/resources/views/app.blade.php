@@ -16,15 +16,11 @@
 </head>
 
 <body>
-    <div id="app">
-        <v-app>
-            @auth
-                <side-nav user-name="{{ Auth::user()->name }}"></side-nav>
-            @endauth
-            <v-main>
-                @yield('content')
-                <v-main>
-        </v-app>
+    <div id="app" class="flex">
+        @auth
+            @include('sidebar')
+        @endauth
+        @yield('content')
     </div>
 
     <!-- public/js -->
