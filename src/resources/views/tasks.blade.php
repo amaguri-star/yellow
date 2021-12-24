@@ -3,19 +3,17 @@
 @section('title', '完了タスク一覧')
 
 @section('content')
-    <div class="tasks__content w-100">
+    <div class="w-full px-20 py-8">
         @include('flush_message')
-        <div class="my-5 px-5">
+        <div class="flex flex-col space-y-4">
             @foreach ($tasks as $task)
-                <div class="card mb-3">
-                    <div class="card-body d-flex justify-content-between">
-                        <div class="card-content">
-                            <h5>{{ $task->name }}</h5>
-                            <p class="card-text">{{ $task->description }}</p>
+                <div class="w-full px-5 py-3 shadow hover:shadow-md rounded">
+                    <div class="">
+                        <div class="flex justify-between">
+                            <p class="font-medium text-lg text-gray-700">{{ $task->name }}</p>
+                            <p class="text-gray-400 text-sm">{{ $task->created_at->format('Y-m-d H:i') }}</p>
                         </div>
-                        <div class="delete-button">
-                            @include('modal')
-                        </div>
+                        <p class="text-gray-600"> - {{ $task->description }}</p>
                     </div>
                 </div>
             @endforeach
