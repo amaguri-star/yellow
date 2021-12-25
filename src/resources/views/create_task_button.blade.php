@@ -8,35 +8,28 @@
     </svg>
 </button>
 
-
-{{-- <div class="fixed z-10 overflow-y-auto top-0 w-full left-0 hidden" id="modal">
-    <div class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-900 opacity-75" />
-        </div>
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-        <div class="inline-block align-center bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-            role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <label>Name</label>
-                <input type="text" class="w-full bg-gray-100 p-2 mt-2 mb-3" />
-                <label>Url</label>
-                <input type="text" class="w-full bg-gray-100 p-2 mt-2 mb-3" />
-            </div>
-            <div class="bg-gray-200 px-4 py-3 text-right">
-                <button type="button" class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2"
-                    onclick="toggleModal()"><i class="fas fa-times"></i> Cancel</button>
-                <button type="button" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"><i
-                        class="fas fa-plus"></i> Create</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
 <div class="fixed bg-black bg-opacity-50 z-1 overflow-y-auto top-0 w-full left-0 h-screen hidden" id="modal">
-    <div class="bg-white mx-auto mt-10 w-8/12">
-        <span class="close" onclick="toggleModal()">&times;</span>
-        <p>Some text in the Modal..</p>
+    <div class="bg-white mx-auto mt-10 p-6 rounded w-3/6 t">
+        <header>
+            <p class="text-lg font-medium">Add "done task"</p>
+        </header>
+        <hr class="my-6">
+        <section>
+            <div class="w-4/5 mx-auto flex flex-col space-y-4">
+                <input class="w-full outline outline-1 outline-gray-300 rounded px-2 py-1" type="text" name="title" placeholder="title">
+                <textarea class="w-full outline outline-1 outline-gray-300 rounded px-2 py-1" name="description" id=""
+                placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse quos laboriosam illo ex soluta ipsa deleniti, suscipit a praesentium, repellendus culpa aliquid odit non delectus architecto distinctio inventore deserunt cum."></textarea>
+            </div>
+        </section>
+        <hr class="my-5">
+        <footer class="flex justify-center space-x-4">
+            <div  class="border border-red-400 text-red-400 rounded">
+                <button class="w-20 h-9 text-center" onclick="toggleModal()">Cancel</button>
+            </div>
+            <div class="border border-teal-400 text-teal-400 rounded">
+                <button class="w-20 h-9 text-center" >Add</button>
+            </div>
+        </footer>
     </div>
 </div>
 
