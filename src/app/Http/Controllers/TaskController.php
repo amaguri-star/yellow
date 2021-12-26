@@ -23,11 +23,6 @@ class TaskController extends Controller
             ->with(['status' => '完了したタスクを追加しました']);
     }
 
-    public function create()
-    {
-        return view('create_task');
-    }
-
     public function destroy(Task $task)
     {
         $task->delete();

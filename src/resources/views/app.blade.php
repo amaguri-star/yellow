@@ -22,7 +22,7 @@
         @endauth
         @yield('content')
     </div>
-    @include('create_task_button')
+    @include('task_modal')
     <!-- public/js -->
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
