@@ -18,9 +18,9 @@
             <div class="w-4/5 mx-auto">
                 <form class="space-y-4" method="POST" action="{{ route('tasks.store') }}" id="createTaskForm">
                     @csrf
-                    <input class="w-full outline outline-1 outline-gray-300 rounded px-2 py-1" type="text" id="name" name="name"
+                    <input class="w-full outline outline-1 outline-gray-500 rounded px-2 py-1" type="text" id="name" name="name"
                         placeholder="title" required>
-                    <textarea class="w-full outline outline-1 outline-gray-300 rounded px-2 py-1" name="description"
+                    <textarea class="w-full outline outline-1 outline-gray-500 rounded px-2 py-1" name="description"
                         id="description" rows="4"
                         placeholder="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse quos laboriosam illo ex soluta ipsa deleniti, suscipit a praesentium, repellendus culpa aliquid odit non delectus architecto distinctio inventore deserunt cum."></textarea>
                 </form>
