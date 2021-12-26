@@ -20,7 +20,7 @@ class TaskController extends Controller
         $task->user_id = $request->user()->id;
         $task->save();
         return redirect()->route('tasks.index')
-            ->with(['status' => '完了したタスクを追加しました']);
+            ->with(['status' => 'Added new task']);
     }
 
     public function destroy(Task $task)
