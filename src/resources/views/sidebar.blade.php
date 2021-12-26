@@ -1,4 +1,4 @@
-<div class="h-screen w-64 min-w-max">
+<div class="w-64 min-w-max">
     <div class="p-6 space-x-4 flex">
         <div class="shrink-0f">
             <img class="h-14 w-14 rounded-full" src="https://randomuser.me/api/portraits/men/51.jpg" alt="">

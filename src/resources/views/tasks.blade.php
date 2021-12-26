@@ -5,7 +5,7 @@
 @section('content')
     <div class="w-full px-20 py-8">
         @include('flush_message')
-        <div class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4 h-full overflow-y-scroll">
             @foreach ($tasks as $task)
                 <div class="w-full px-5 py-3 shadow hover:shadow-md rounded">
                     <div class="">

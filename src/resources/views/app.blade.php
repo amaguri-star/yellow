@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div id="app" class="flex">
+    <div id="app" class="flex h-screen">
         @auth
             @include('sidebar')
         @endauth
