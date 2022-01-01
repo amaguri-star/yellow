@@ -3,12 +3,12 @@
 @section('title', '完了タスク一覧')
 
 @section('content')
-
     <div class="w-full px-20 py-8">
+        <Vue-date-picker></Vue-date-picker>
         @include('flush_message')
         <div class="flex flex-col space-y-4 h-full overflow-y-scroll">
-            @foreach ($grouped_tasks as $tasks)
-                <div class="{{ $loop->first ? 'active' : 'hidden' }}">
+            @foreach ($grouped_tasks as $key => $tasks)
+                <div class="{{ $loop->first ? 'active' : 'hidden' }} {{ $key }} group_by_day">
                     @foreach ($tasks as $task)
                         <div class="w-full px-5 py-3 shadow hover:shadow-md rounded">
                             <div class="">
