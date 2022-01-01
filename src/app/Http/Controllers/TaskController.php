@@ -10,8 +10,13 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('user_id', Auth::id())->get();
-        return view('tasks', ['tasks' => $tasks]);
+        $grouped_tasks = Task::where('user_id', Auth::id())
+            ->orderByDesc('created_at')
+            ->get()
+            ->groupBy(function ($task) {
+                return $task->created_at->format('Y-m-d');
+            });
+        return view('tasks', ['grouped_tasks' => $grouped_tasks]);
     }
 
     public function store(TaskRequest $request, Task $task)
