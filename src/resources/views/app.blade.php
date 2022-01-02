@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>
-        @yield('title')
-    </title>
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- icon -->
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+
     <!-- css -->
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
-    <div id="app" class="flex h-screen">
-        @auth
-            @include('sidebar')
-        @endauth
-        @yield('content')
+    <div id="app">
+        <v-app>
+            @auth
+                <side-bar username="{{ Auth::user()->name }}"></side-bar>
+            @endauth
+            <v-main>
+                <router-view></router-view>
+            </v-main>
+        </v-app>
     </div>
-    @include('task_modal')
-    <!-- public/js -->
+    <!-- script -->
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 
