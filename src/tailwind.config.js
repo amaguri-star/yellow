@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin')
 
 module.exports = {
     content: [
-        "./resources/**/*.blade.php",
+        "./resources/**/*.{php, vue}",
     ],
     theme: {
         extend: {},
