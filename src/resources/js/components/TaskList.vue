@@ -10,10 +10,10 @@
             <v-list dense two-line>
                 <v-subheader>tasks</v-subheader>
                 <v-list-item-group v-model="selectedItem" color="primary">
-                    <v-list-item v-for="item in filterTasks" :key="item.id">
+                    <v-list-item v-for="task in filterTasks" :key="task.id">
                         <v-list-item-content>
                             <v-list-item-title
-                                v-text="item.name"
+                                v-text="task.text"
                                 class="subtitle-1"
                             ></v-list-item-title>
                         </v-list-item-content>

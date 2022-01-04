@@ -41982,17 +41982,17 @@ var render = function () {
                     expression: "selectedItem",
                   },
                 },
-                _vm._l(_vm.filterTasks, function (item) {
+                _vm._l(_vm.filterTasks, function (task) {
                   return _c(
                     "v-list-item",
-                    { key: item.id },
+                    { key: task.id },
                     [
                       _c(
                         "v-list-item-content",
                         [
                           _c("v-list-item-title", {
                             staticClass: "subtitle-1",
-                            domProps: { textContent: _vm._s(item.name) },
+                            domProps: { textContent: _vm._s(task.text) },
                           }),
                         ],
                         1

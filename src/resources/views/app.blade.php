@@ -25,6 +25,9 @@
                     <router-view user_id="{{ Auth::id() }}"></router-view>
                 </v-main>
             @endauth
+            @guest
+            
+            @endguest
         </v-app>
     </div>
     <!-- script -->
