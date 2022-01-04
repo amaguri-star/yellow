@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $tasks = Task::where('user_id', Auth::id())->get();
-        return view('tasks', ['tasks' => $tasks]);
+        return Task::where('user_id', $id)->get();
     }
 
     public function store(TaskRequest $request, Task $task)

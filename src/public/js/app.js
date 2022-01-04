@@ -2096,37 +2096,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    username: {
-      type: String,
+    user: {
+      type: Object,
       required: true
     }
-  },
-  data: function data() {
-    return {
-      items: [{
-        title: "Home",
-        icon: "mdi-home-city-outline",
-        to: "/"
-      }, {
-        title: "My Account",
-        icon: "mdi-account-outline",
-        to: "/user"
-      }, {
-        title: "Tasks",
-        icon: "mdi-calendar-check-outline",
-        to: "/tasks"
-      }, {
-        title: "Chat",
-        icon: "mdi-chat-outline",
-        to: "/chat"
-      }, {
-        title: "Settings",
-        icon: "mdi-cog-outline",
-        to: "/settings"
-      }]
-    };
   }
 });
 
@@ -2177,12 +2192,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    user_id: {
+      type: String,
+      required: true
+    }
   },
   data: function data() {
     return {
@@ -2193,39 +2213,26 @@ __webpack_require__.r(__webpack_exports__);
         from: Date
       },
       dotsIcon: "mdi-dots-vertical",
-      selectedItem: 1,
-      tempDate: [{
-        id: 0,
-        text: "task01",
-        description: "test1 des",
-        created_at: "2022-01-01"
-      }, {
-        id: 1,
-        text: "task02",
-        description: "test2 des",
-        created_at: "2022-01-01"
-      }, {
-        id: 2,
-        text: "task03",
-        description: "test3 des",
-        created_at: "2022-01-01"
-      }, {
-        id: 3,
-        text: "task04",
-        description: "test4 des",
-        created_at: "2022-01-01"
-      }]
+      selectedItem: 0,
+      tasks: []
     };
   },
   methods: {
     formatDate: function formatDate(date) {
       if (!!date) return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("YYYY-MM-DD  H:mm");
+    },
+    getTasks: function getTasks() {
+      var _this = this;
+
+      axios.get("/api/user/" + this.user_id + "/tasks").then(function (res) {
+        _this.tasks = res.data;
+      });
     }
   },
   computed: {
     filterTasks: function filterTasks() {
       var date = moment__WEBPACK_IMPORTED_MODULE_1___default()(this.defaultDate).format("YYYY-MM-DD");
-      return this.tempDate.filter(function (task) {
+      return this.tasks.filter(function (task) {
         return moment__WEBPACK_IMPORTED_MODULE_1___default()(task.created_at).format("YYYY-MM-DD") === date;
       });
     }
@@ -2237,6 +2244,9 @@ __webpack_require__.r(__webpack_exports__);
     datefrom.setTime(datefrom.getTime() + 24 * 60 * 60 * 1000);
     this.disabledDates.to = dateto;
     this.disabledDates.from = datefrom;
+  },
+  mounted: function mounted() {
+    this.getTasks();
   }
 });
 
@@ -2269,7 +2279,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   routes: [{
     path: '/tasks',
     name: 'task.list',
-    component: _components_TaskList__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _components_TaskList__WEBPACK_IMPORTED_MODULE_2__["default"],
+    props: true
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
@@ -41784,9 +41795,9 @@ var render = function () {
                   _c(
                     "v-list-item-content",
                     [
-                      _c("v-list-item-title", [_vm._v(_vm._s(_vm.username))]),
+                      _c("v-list-item-title", [_vm._v(_vm._s(_vm.user.name))]),
                       _vm._v(" "),
-                      _c("v-list-item-subtitle", [_vm._v("Logged In")]),
+                      _c("v-list-item-subtitle", [_vm._v("Rank: 7")]),
                     ],
                     1
                   ),
@@ -41806,26 +41817,98 @@ var render = function () {
       _c(
         "v-list",
         { attrs: { dense: "" } },
-        _vm._l(_vm.items, function (item) {
-          return _c(
+        [
+          _c(
             "v-list-item",
-            { key: item.title, attrs: { to: item.to } },
             [
               _c(
                 "v-list-item-icon",
-                [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                [_c("v-icon", [_vm._v("mdi-home-city-outline")])],
                 1
               ),
               _vm._v(" "),
               _c(
                 "v-list-item-content",
-                [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
+                [_c("v-list-item-title", [_vm._v("Home")])],
                 1
               ),
             ],
             1
-          )
-        }),
+          ),
+          _vm._v(" "),
+          _c(
+            "v-list-item",
+            [
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", [_vm._v("mdi-account-outline")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item-content",
+                [_c("v-list-item-title", [_vm._v("My Account")])],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-list-item",
+            { attrs: { to: { name: "task.list" } } },
+            [
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", [_vm._v("mdi-calendar-check-outline")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item-content",
+                [_c("v-list-item-title", [_vm._v("Tasks")])],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-list-item",
+            [
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", [_vm._v("mdi-chat-outline")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item-content",
+                [_c("v-list-item-title", [_vm._v("Chat")])],
+                1
+              ),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-list-item",
+            [
+              _c(
+                "v-list-item-icon",
+                [_c("v-icon", [_vm._v("mdi-cog-outline")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item-content",
+                [_c("v-list-item-title", [_vm._v("Settings")])],
+                1
+              ),
+            ],
+            1
+          ),
+        ],
         1
       ),
     ],
@@ -41883,7 +41966,7 @@ var render = function () {
           _vm._v(" "),
           _c(
             "v-list",
-            { attrs: { dense: "" } },
+            { attrs: { dense: "", "two-line": "" } },
             [
               _c("v-subheader", [_vm._v("tasks")]),
               _vm._v(" "),
@@ -41909,11 +41992,7 @@ var render = function () {
                         [
                           _c("v-list-item-title", {
                             staticClass: "subtitle-1",
-                            domProps: { textContent: _vm._s(item.text) },
-                          }),
-                          _vm._v(" "),
-                          _c("v-list-item-subtitle", {
-                            domProps: { textContent: _vm._s(item.description) },
+                            domProps: { textContent: _vm._s(item.name) },
                           }),
                         ],
                         1

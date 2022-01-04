@@ -15,6 +15,7 @@ const router = new VueRouter({
             path: '/tasks',
             name: 'task.list',
             component: TaskList,
+            props: true,
         }
     ]
 });

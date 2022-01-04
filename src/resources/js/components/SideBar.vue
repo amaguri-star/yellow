@@ -7,8 +7,8 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                    <v-list-item-title>{{ username }}</v-list-item-title>
-                    <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+                    <v-list-item-title>{{ user.name }}</v-list-item-title>
+                    <v-list-item-subtitle>Rank: 7</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </template>
@@ -16,13 +16,53 @@
         <v-divider></v-divider>
 
         <v-list dense>
-            <v-list-item v-for="item in items" :key="item.title" :to="item.to">
+            <v-list-item>
                 <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
+                    <v-icon>mdi-home-city-outline</v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-title>Home</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+                <v-list-item-icon>
+                    <v-icon>mdi-account-outline</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title>My Account</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item :to="{ name: 'task.list' }">
+                <v-list-item-icon>
+                    <v-icon>mdi-calendar-check-outline</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title>Tasks</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+                <v-list-item-icon>
+                    <v-icon>mdi-chat-outline</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title>Chat</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item>
+                <v-list-item-icon>
+                    <v-icon>mdi-cog-outline</v-icon>
+                </v-list-item-icon>
+
+                <v-list-item-content>
+                    <v-list-item-title>Settings</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -32,30 +72,10 @@
 <script>
 export default {
     props: {
-        username: {
-            type: String,
+        user: {
+            type: Object,
             required: true,
         },
-    },
-
-    data() {
-        return {
-            items: [
-                { title: "Home", icon: "mdi-home-city-outline", to: "/" },
-                {
-                    title: "My Account",
-                    icon: "mdi-account-outline",
-                    to: "/user",
-                },
-                {
-                    title: "Tasks",
-                    icon: "mdi-calendar-check-outline",
-                    to: "/tasks",
-                },
-                { title: "Chat", icon: "mdi-chat-outline", to: "/chat" },
-                { title: "Settings", icon: "mdi-cog-outline", to: "/settings" },
-            ],
-        };
     },
 };
 </script>

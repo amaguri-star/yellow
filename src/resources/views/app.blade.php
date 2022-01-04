@@ -20,11 +20,11 @@
     <div id="app">
         <v-app>
             @auth
-                <side-bar username="{{ Auth::user()->name }}"></side-bar>
+                <side-bar :user="{{ Auth::user() }}"></side-bar>
+                <v-main>
+                    <router-view user_id="{{ Auth::id() }}"></router-view>
+                </v-main>
             @endauth
-            <v-main>
-                <router-view></router-view>
-            </v-main>
         </v-app>
     </div>
     <!-- script -->
