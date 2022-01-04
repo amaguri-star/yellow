@@ -2202,6 +2202,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2253,6 +2258,26 @@ __webpack_require__.r(__webpack_exports__);
         _this2.newTask = "";
       })["catch"](function (err) {
         _this2.errMessage = err;
+      });
+    },
+    editTask: function editTask(taskId) {
+      var _this3 = this;
+
+      axios.put("/api/user/" + this.user_id + "/tasks/" + taskId, {
+        text: "Did you get job done?"
+      }).then(function (res) {
+        _this3.getTasks();
+      })["catch"](function (err) {
+        _this3.errMessage = err;
+      });
+    },
+    deleteTask: function deleteTask(taskId) {
+      var _this4 = this;
+
+      axios["delete"]("/api/user/" + this.user_id + "/tasks/" + taskId).then(function (res) {
+        _this4.getTasks();
+      })["catch"](function (err) {
+        _this4.errMessage = err;
       });
     }
   },
@@ -42000,7 +42025,7 @@ var render = function () {
               "append-icon": "mdi-plus",
             },
             on: {
-              keydown: function ($event) {
+              keypress: function ($event) {
                 if (
                   !$event.type.indexOf("key") &&
                   _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
@@ -42048,12 +42073,37 @@ var render = function () {
                       [
                         _c(
                           "v-btn",
-                          { attrs: { icon: "" } },
-                          [
-                            _c("v-icon", {
-                              domProps: { textContent: _vm._s(_vm.dotsIcon) },
-                            }),
-                          ],
+                          {
+                            attrs: { icon: "" },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.editTask(task.id)
+                              },
+                            },
+                          },
+                          [_c("v-icon", [_vm._v("mdi-pencil-outline")])],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-item-icon",
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { icon: "" },
+                            on: {
+                              click: function ($event) {
+                                $event.preventDefault()
+                                return _vm.deleteTask(task.id)
+                              },
+                            },
+                          },
+                          [_c("v-icon", [_vm._v("mdi-trash-can-outline")])],
                           1
                         ),
                       ],

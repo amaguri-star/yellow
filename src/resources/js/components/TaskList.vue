@@ -10,7 +10,7 @@
 
             <v-text-field
                 :rules="rules"
-                @keydown.enter.prevent="createTask"
+                @keypress.enter.prevent="createTask"
                 @click:append="createTask"
                 v-model="newTask"
                 label="Enter New Task"
@@ -28,11 +28,16 @@
                             class="subtitle-1"
                         ></v-list-item-title>
                     </v-list-item-content>
-                        <v-list-item-icon>
-                            <v-btn icon>
-                                <v-icon v-text="dotsIcon"></v-icon>
-                            </v-btn>
-                        </v-list-item-icon>
+                    <v-list-item-icon>
+                        <v-btn icon @click.prevent="editTask(task.id)">
+                            <v-icon>mdi-pencil-outline</v-icon>
+                        </v-btn>
+                    </v-list-item-icon>
+                    <v-list-item-icon>
+                        <v-btn icon @click.prevent="deleteTask(task.id)">
+                            <v-icon>mdi-trash-can-outline</v-icon>
+                        </v-btn>
+                    </v-list-item-icon>
                 </v-list-item>
             </v-list>
         </v-card>
@@ -90,6 +95,28 @@ export default {
                 .then((res) => {
                     this.getTasks();
                     this.newTask = "";
+                })
+                .catch((err) => {
+                    this.errMessage = err;
+                });
+        },
+        editTask(taskId) {
+            axios
+                .put("/api/user/" + this.user_id + "/tasks/" + taskId, {
+                    text: "Did you get job done?",
+                })
+                .then((res) => {
+                    this.getTasks();
+                })
+                .catch((err) => {
+                    this.errMessage = err;
+                });
+        },
+        deleteTask(taskId) {
+            axios
+                .delete("/api/user/" + this.user_id + "/tasks/" + taskId)
+                .then((res) => {
+                    this.getTasks();
                 })
                 .catch((err) => {
                     this.errMessage = err;
