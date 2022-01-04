@@ -14,6 +14,7 @@ use App\Http\Controllers\TaskController;
 |
 */
 Route::get('/user/{id}/tasks', [TaskController::class, 'index']);
+Route::post('/user/{id}/tasks', [TaskController::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

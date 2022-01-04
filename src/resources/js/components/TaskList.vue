@@ -7,23 +7,33 @@
                 :format="datePickerFormat"
                 :disabled-dates="disabledDates"
             ></Datepicker>
+
+            <v-text-field
+                :rules="rules"
+                @keydown.enter.prevent="createTask"
+                @click:append="createTask"
+                v-model="newTask"
+                label="Enter New Task"
+                hide-details="auto"
+                single-line
+                append-icon="mdi-plus"
+            ></v-text-field>
+
             <v-list dense two-line>
                 <v-subheader>tasks</v-subheader>
-                <v-list-item-group v-model="selectedItem" color="primary">
-                    <v-list-item v-for="task in filterTasks" :key="task.id">
-                        <v-list-item-content>
-                            <v-list-item-title
-                                v-text="task.text"
-                                class="subtitle-1"
-                            ></v-list-item-title>
-                        </v-list-item-content>
+                <v-list-item v-for="task in filterTasks" :key="task.id">
+                    <v-list-item-content>
+                        <v-list-item-title
+                            v-text="task.text"
+                            class="subtitle-1"
+                        ></v-list-item-title>
+                    </v-list-item-content>
                         <v-list-item-icon>
                             <v-btn icon>
                                 <v-icon v-text="dotsIcon"></v-icon>
                             </v-btn>
                         </v-list-item-icon>
-                    </v-list-item>
-                </v-list-item-group>
+                </v-list-item>
             </v-list>
         </v-card>
     </v-container>
@@ -54,8 +64,12 @@ export default {
                 from: Date,
             },
             dotsIcon: "mdi-dots-vertical",
-            selectedItem: 0,
             tasks: [],
+            rules: [
+                (value) => (value || "").length <= 50 || "Max 50 characters",
+            ],
+            newTask: "",
+            errMessage: "",
         };
     },
 
@@ -67,6 +81,19 @@ export default {
             axios.get("/api/user/" + this.user_id + "/tasks").then((res) => {
                 this.tasks = res.data;
             });
+        },
+        createTask() {
+            axios
+                .post("/api/user/" + this.user_id + "/tasks", {
+                    text: this.newTask,
+                })
+                .then((res) => {
+                    this.getTasks();
+                    this.newTask = "";
+                })
+                .catch((err) => {
+                    this.errMessage = err;
+                });
         },
     },
 
@@ -90,6 +117,6 @@ export default {
 
     mounted() {
         this.getTasks();
-    }
+    },
 };
 </script>

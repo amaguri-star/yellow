@@ -18,13 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/{any}', function () {
-    return view('app');
-})->where('any', '.*');
-
-// HomeController
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth');
-
 // RegisterController
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('auth.register')->middleware('guest');
 Route::post('/register', [RegisterController::class, 'register'])->name('auth.register')->middleware('guest');
@@ -41,7 +34,6 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('password.reset')->middleware('guest');
 Route::post('/reset-password', [ForgotPasswordController::class, 'ResetPassword'])->name('password.update')->middleware('guest');
 
-// resources for each controller
-Route::resource('tasks', TaskController::class)->only([
-    'index', 'store', 'destroy',
-])->middleware('auth');
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');

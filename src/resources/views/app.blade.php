@@ -26,7 +26,7 @@
                 </v-main>
             @endauth
             @guest
-            
+                @yield('content')
             @endguest
         </v-app>
     </div>

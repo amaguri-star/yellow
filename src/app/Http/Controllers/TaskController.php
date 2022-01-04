@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -13,13 +12,12 @@ class TaskController extends Controller
         return Task::where('user_id', $id)->get();
     }
 
-    public function store(TaskRequest $request, Task $task)
+    public function store(TaskRequest $request, Task $task, $id)
     {
         $task->fill($request->all());
-        $task->user_id = $request->user()->id;
+        $task->user_id = $id;
         $task->save();
-        return redirect()->route('tasks.index')
-            ->with(['status' => 'Added new task']);
+        return $task;
     }
 
     public function destroy(Task $task)

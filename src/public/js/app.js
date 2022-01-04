@@ -2192,6 +2192,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2213,8 +2223,12 @@ __webpack_require__.r(__webpack_exports__);
         from: Date
       },
       dotsIcon: "mdi-dots-vertical",
-      selectedItem: 0,
-      tasks: []
+      tasks: [],
+      rules: [function (value) {
+        return (value || "").length <= 50 || "Max 50 characters";
+      }],
+      newTask: "",
+      errMessage: ""
     };
   },
   methods: {
@@ -2226,6 +2240,19 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/user/" + this.user_id + "/tasks").then(function (res) {
         _this.tasks = res.data;
+      });
+    },
+    createTask: function createTask() {
+      var _this2 = this;
+
+      axios.post("/api/user/" + this.user_id + "/tasks", {
+        text: this.newTask
+      }).then(function (res) {
+        _this2.getTasks();
+
+        _this2.newTask = "";
+      })["catch"](function (err) {
+        _this2.errMessage = err;
       });
     }
   },
@@ -41964,64 +41991,80 @@ var render = function () {
             },
           }),
           _vm._v(" "),
+          _c("v-text-field", {
+            attrs: {
+              rules: _vm.rules,
+              label: "Enter New Task",
+              "hide-details": "auto",
+              "single-line": "",
+              "append-icon": "mdi-plus",
+            },
+            on: {
+              keydown: function ($event) {
+                if (
+                  !$event.type.indexOf("key") &&
+                  _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                ) {
+                  return null
+                }
+                $event.preventDefault()
+                return _vm.createTask.apply(null, arguments)
+              },
+              "click:append": _vm.createTask,
+            },
+            model: {
+              value: _vm.newTask,
+              callback: function ($$v) {
+                _vm.newTask = $$v
+              },
+              expression: "newTask",
+            },
+          }),
+          _vm._v(" "),
           _c(
             "v-list",
             { attrs: { dense: "", "two-line": "" } },
             [
               _c("v-subheader", [_vm._v("tasks")]),
               _vm._v(" "),
-              _c(
-                "v-list-item-group",
-                {
-                  attrs: { color: "primary" },
-                  model: {
-                    value: _vm.selectedItem,
-                    callback: function ($$v) {
-                      _vm.selectedItem = $$v
-                    },
-                    expression: "selectedItem",
-                  },
-                },
-                _vm._l(_vm.filterTasks, function (task) {
-                  return _c(
-                    "v-list-item",
-                    { key: task.id },
-                    [
-                      _c(
-                        "v-list-item-content",
-                        [
-                          _c("v-list-item-title", {
-                            staticClass: "subtitle-1",
-                            domProps: { textContent: _vm._s(task.text) },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item-icon",
-                        [
-                          _c(
-                            "v-btn",
-                            { attrs: { icon: "" } },
-                            [
-                              _c("v-icon", {
-                                domProps: { textContent: _vm._s(_vm.dotsIcon) },
-                              }),
-                            ],
-                            1
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  )
-                }),
-                1
-              ),
+              _vm._l(_vm.filterTasks, function (task) {
+                return _c(
+                  "v-list-item",
+                  { key: task.id },
+                  [
+                    _c(
+                      "v-list-item-content",
+                      [
+                        _c("v-list-item-title", {
+                          staticClass: "subtitle-1",
+                          domProps: { textContent: _vm._s(task.text) },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-list-item-icon",
+                      [
+                        _c(
+                          "v-btn",
+                          { attrs: { icon: "" } },
+                          [
+                            _c("v-icon", {
+                              domProps: { textContent: _vm._s(_vm.dotsIcon) },
+                            }),
+                          ],
+                          1
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                )
+              }),
             ],
-            1
+            2
           ),
         ],
         1
