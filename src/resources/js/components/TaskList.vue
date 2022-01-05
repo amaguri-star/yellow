@@ -12,7 +12,7 @@
                 :rules="rules"
                 @keypress.enter.prevent="createTask"
                 @click:append="createTask"
-                v-model="newTask"
+                v-model="newTaskText"
                 label="Enter New Task"
                 hide-details="auto"
                 single-line
@@ -29,7 +29,7 @@
                         ></v-list-item-title>
                     </v-list-item-content>
                     <v-list-item-icon>
-                        <v-btn icon @click.prevent="editTask(task.id)">
+                        <v-btn icon @click="openEditModal(task.id, task.text)">
                             <v-icon>mdi-pencil-outline</v-icon>
                         </v-btn>
                     </v-list-item-icon>
@@ -41,16 +41,32 @@
                 </v-list-item>
             </v-list>
         </v-card>
+        <EditModal @close="closeEditModal" v-if="modal">
+            <template slot="content">
+                <div v-text="editTaskId"></div>
+                <v-text-field
+                    :rules="rules"
+                    v-model="editTaskText"
+                ></v-text-field>
+            </template>
+            <template slot="footer">
+                <button @click="closeEditModal">Close</button>
+                <button @click="editTask">Send</button>
+            </template>
+            <!-- /footer -->
+        </EditModal>
     </v-container>
 </template>
 
 <script>
 import Datepicker from "vuejs-datepicker";
 import moment from "moment";
+import EditModal from "./EditModal.vue";
 
 export default {
     components: {
         Datepicker,
+        EditModal,
     },
 
     props: {
@@ -73,14 +89,27 @@ export default {
             rules: [
                 (value) => (value || "").length <= 50 || "Max 50 characters",
             ],
-            newTask: "",
+            newTaskText: "",
+            editTaskId: Number,
+            editTaskText: "",
             errMessage: "",
+            modal: false,
         };
     },
 
     methods: {
         formatDate: function (date) {
             if (!!date) return moment(date).format("YYYY-MM-DD  H:mm");
+        },
+        openEditModal(id, text) {
+            this.editTaskId = id;
+            this.editTaskText = text;
+            this.modal = true;
+        },
+        closeEditModal() {
+            this.editTaskId = null;
+            this.editTaskText = "";
+            this.modal = false;
         },
         getTasks() {
             axios.get("/api/user/" + this.user_id + "/tasks").then((res) => {
@@ -90,22 +119,26 @@ export default {
         createTask() {
             axios
                 .post("/api/user/" + this.user_id + "/tasks", {
-                    text: this.newTask,
+                    text: this.newTaskText,
                 })
                 .then((res) => {
                     this.getTasks();
-                    this.newTask = "";
+                    this.newTaskText = "";
                 })
                 .catch((err) => {
                     this.errMessage = err;
                 });
         },
-        editTask(taskId) {
+        editTask() {
             axios
-                .put("/api/user/" + this.user_id + "/tasks/" + taskId, {
-                    text: "Did you get job done?",
-                })
+                .put(
+                    "/api/user/" + this.user_id + "/tasks/" + this.editTaskId,
+                    {
+                        text: this.editTaskText,
+                    }
+                )
                 .then((res) => {
+                    this.closeEditModal();
                     this.getTasks();
                 })
                 .catch((err) => {

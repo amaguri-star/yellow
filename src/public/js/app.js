@@ -2161,6 +2161,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _EditModal_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EditModal.vue */ "./resources/js/components/EditModal.vue");
 //
 //
 //
@@ -2207,11 +2208,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"],
+    EditModal: _EditModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
     user_id: {
@@ -2232,13 +2249,26 @@ __webpack_require__.r(__webpack_exports__);
       rules: [function (value) {
         return (value || "").length <= 50 || "Max 50 characters";
       }],
-      newTask: "",
-      errMessage: ""
+      newTaskText: "",
+      editTaskId: Number,
+      editTaskText: "",
+      errMessage: "",
+      modal: false
     };
   },
   methods: {
     formatDate: function formatDate(date) {
       if (!!date) return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).format("YYYY-MM-DD  H:mm");
+    },
+    openEditModal: function openEditModal(id, text) {
+      this.editTaskId = id;
+      this.editTaskText = text;
+      this.modal = true;
+    },
+    closeEditModal: function closeEditModal() {
+      this.editTaskId = null;
+      this.editTaskText = "";
+      this.modal = false;
     },
     getTasks: function getTasks() {
       var _this = this;
@@ -2251,21 +2281,23 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post("/api/user/" + this.user_id + "/tasks", {
-        text: this.newTask
+        text: this.newTaskText
       }).then(function (res) {
         _this2.getTasks();
 
-        _this2.newTask = "";
+        _this2.newTaskText = "";
       })["catch"](function (err) {
         _this2.errMessage = err;
       });
     },
-    editTask: function editTask(taskId) {
+    editTask: function editTask() {
       var _this3 = this;
 
-      axios.put("/api/user/" + this.user_id + "/tasks/" + taskId, {
-        text: "Did you get job done?"
+      axios.put("/api/user/" + this.user_id + "/tasks/" + this.editTaskId, {
+        text: this.editTaskText
       }).then(function (res) {
+        _this3.closeEditModal();
+
         _this3.getTasks();
       })["catch"](function (err) {
         _this3.errMessage = err;
@@ -41663,6 +41695,43 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./resources/js/components/EditModal.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/EditModal.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditModal.vue?vue&type=template&id=04ac6368& */ "./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__.render,
+  _EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EditModal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/SideBar.vue":
 /*!*********************************************!*\
   !*** ./resources/js/components/SideBar.vue ***!
@@ -41773,6 +41842,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditModal_vue_vue_type_template_id_04ac6368___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditModal.vue?vue&type=template&id=04ac6368& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/SideBar.vue?vue&type=template&id=223abea1&":
 /*!****************************************************************************!*\
   !*** ./resources/js/components/SideBar.vue?vue&type=template&id=223abea1& ***!
@@ -41803,6 +41889,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_template_id_0afd8bae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TaskList_vue_vue_type_template_id_0afd8bae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TaskList.vue?vue&type=template&id=0afd8bae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/EditModal.vue?vue&type=template&id=04ac6368& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "modal", appear: "" } }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "\n            flex\n            justify-center\n            align-center\n            fixed\n            absolute\n            top-0\n            left-0\n            w-full\n            h-screen\n            bg-black bg-opacity-50\n            z-30\n        ",
+        on: {
+          click: function ($event) {
+            if ($event.target !== $event.currentTarget) {
+              return null
+            }
+            return _vm.$emit("close")
+          },
+        },
+      },
+      [
+        _c("div", { staticClass: "bg-white p-6 rounded" }, [
+          _c("div", { staticClass: "modal-content" }, [_vm._t("content")], 2),
+          _vm._v(" "),
+          _c("footer", { staticClass: "modal-footer" }, [_vm._t("footer")], 2),
+        ]),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ }),
@@ -42038,11 +42172,11 @@ var render = function () {
               "click:append": _vm.createTask,
             },
             model: {
-              value: _vm.newTask,
+              value: _vm.newTaskText,
               callback: function ($$v) {
-                _vm.newTask = $$v
+                _vm.newTaskText = $$v
               },
-              expression: "newTask",
+              expression: "newTaskText",
             },
           }),
           _vm._v(" "),
@@ -42077,8 +42211,7 @@ var render = function () {
                             attrs: { icon: "" },
                             on: {
                               click: function ($event) {
-                                $event.preventDefault()
-                                return _vm.editTask(task.id)
+                                return _vm.openEditModal(task.id, task.text)
                               },
                             },
                           },
@@ -42119,6 +42252,45 @@ var render = function () {
         ],
         1
       ),
+      _vm._v(" "),
+      _vm.modal
+        ? _c(
+            "EditModal",
+            { on: { close: _vm.closeEditModal } },
+            [
+              _c(
+                "template",
+                { slot: "content" },
+                [
+                  _c("div", {
+                    domProps: { textContent: _vm._s(_vm.editTaskId) },
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: { rules: _vm.rules },
+                    model: {
+                      value: _vm.editTaskText,
+                      callback: function ($$v) {
+                        _vm.editTaskText = $$v
+                      },
+                      expression: "editTaskText",
+                    },
+                  }),
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("template", { slot: "footer" }, [
+                _c("button", { on: { click: _vm.closeEditModal } }, [
+                  _vm._v("Close"),
+                ]),
+                _vm._v(" "),
+                _c("button", { on: { click: _vm.editTask } }, [_vm._v("Send")]),
+              ]),
+            ],
+            2
+          )
+        : _vm._e(),
     ],
     1
   )
