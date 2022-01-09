@@ -2,6 +2,8 @@ import './bootstrap'
 import Vue from 'vue'
 import Vuetify from './plugins/vuetify'
 import VueRouter from 'vue-router'
+import LoginPage from './components/LoginPage'
+import SigninPage from './components/SigninPage'
 import TaskList from './components/TaskList'
 import SideBar from './components/SideBar'
 
@@ -16,6 +18,18 @@ const router = new VueRouter({
             name: 'task.list',
             component: TaskList,
             props: true,
+        },
+
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginPage,
+        },
+
+        {
+            path: '/signin',
+            name: 'signin',
+            component: SigninPage,
         }
     ]
 });
@@ -26,5 +40,6 @@ const app = new Vue({
     router,
     components: {
         SideBar,
+        LoginPage
     }
 })

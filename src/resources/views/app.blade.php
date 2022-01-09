@@ -19,15 +19,11 @@
 <body>
     <div id="app">
         <v-app>
-            @auth
-                <side-bar :user="{{ Auth::user() }}"></side-bar>
-                <v-main>
-                    <router-view user_id="{{ Auth::id() }}"></router-view>
-                </v-main>
-            @endauth
-            @guest
-                @yield('content')
-            @endguest
+            <side-bar :is-logged-in="{{ Auth::check() ? 'true' : 'false' }}"
+                username="{{ Auth::check() ? Auth::user()->name : 'unauthenticate user' }}"></side-bar>
+            <v-main>
+                <router-view user_id="{{ Auth::id() }}"></router-view>
+            </v-main>
         </v-app>
     </div>
     <!-- script -->
