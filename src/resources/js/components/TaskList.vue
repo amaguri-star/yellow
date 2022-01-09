@@ -70,7 +70,7 @@ export default {
     },
 
     props: {
-        user_id: {
+        userId: {
             type: String,
             required: true,
         },
@@ -112,13 +112,13 @@ export default {
             this.modal = false;
         },
         getTasks() {
-            axios.get("/api/user/" + this.user_id + "/tasks").then((res) => {
+            axios.get("/api/user/" + this.userId + "/tasks").then((res) => {
                 this.tasks = res.data;
             });
         },
         createTask() {
             axios
-                .post("/api/user/" + this.user_id + "/tasks", {
+                .post("/api/user/" + this.userId + "/tasks", {
                     text: this.newTaskText,
                 })
                 .then((res) => {
@@ -132,7 +132,7 @@ export default {
         editTask() {
             axios
                 .put(
-                    "/api/user/" + this.user_id + "/tasks/" + this.editTaskId,
+                    "/api/user/" + this.userId + "/tasks/" + this.editTaskId,
                     {
                         text: this.editTaskText,
                     }
@@ -147,7 +147,7 @@ export default {
         },
         deleteTask(taskId) {
             axios
-                .delete("/api/user/" + this.user_id + "/tasks/" + taskId)
+                .delete("/api/user/" + this.userId + "/tasks/" + taskId)
                 .then((res) => {
                     this.getTasks();
                 })

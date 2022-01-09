@@ -22,7 +22,7 @@
             <side-bar :is-logged-in="{{ Auth::check() ? 'true' : 'false' }}"
                 username="{{ Auth::check() ? Auth::user()->name : 'unauthenticate user' }}"></side-bar>
             <v-main>
-                <router-view user_id="{{ Auth::id() }}"></router-view>
+                <router-view user-id="{{ Auth::id() }}"></router-view>
             </v-main>
         </v-app>
     </div>

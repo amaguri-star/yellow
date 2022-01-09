@@ -2413,7 +2413,7 @@ __webpack_require__.r(__webpack_exports__);
     EditModal: _EditModal_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {
-    user_id: {
+    userId: {
       type: String,
       required: true
     }
@@ -2455,14 +2455,14 @@ __webpack_require__.r(__webpack_exports__);
     getTasks: function getTasks() {
       var _this = this;
 
-      axios.get("/api/user/" + this.user_id + "/tasks").then(function (res) {
+      axios.get("/api/user/" + this.userId + "/tasks").then(function (res) {
         _this.tasks = res.data;
       });
     },
     createTask: function createTask() {
       var _this2 = this;
 
-      axios.post("/api/user/" + this.user_id + "/tasks", {
+      axios.post("/api/user/" + this.userId + "/tasks", {
         text: this.newTaskText
       }).then(function (res) {
         _this2.getTasks();
@@ -2475,7 +2475,7 @@ __webpack_require__.r(__webpack_exports__);
     editTask: function editTask() {
       var _this3 = this;
 
-      axios.put("/api/user/" + this.user_id + "/tasks/" + this.editTaskId, {
+      axios.put("/api/user/" + this.userId + "/tasks/" + this.editTaskId, {
         text: this.editTaskText
       }).then(function (res) {
         _this3.closeEditModal();
@@ -2488,7 +2488,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteTask: function deleteTask(taskId) {
       var _this4 = this;
 
-      axios["delete"]("/api/user/" + this.user_id + "/tasks/" + taskId).then(function (res) {
+      axios["delete"]("/api/user/" + this.userId + "/tasks/" + taskId).then(function (res) {
         _this4.getTasks();
       })["catch"](function (err) {
         _this4.errMessage = err;
