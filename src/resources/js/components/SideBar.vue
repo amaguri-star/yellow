@@ -7,8 +7,8 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                    <v-list-item-title>{{ username }}</v-list-item-title>
-                    <v-list-item-subtitle>Rank: 7</v-list-item-subtitle>
+                    <v-list-item-title v-text="user.name"></v-list-item-title>
+                    <v-list-item-subtitle v-text="user.email"></v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </template>
@@ -102,26 +102,24 @@
 </template>
 
 <script>
-export default {
-    props: {
-        username: {
-            type: String,
-        },
-        isLoggedIn: {
-            type: Boolean,
-        },
-    },
+import { mapState } from "vuex";
 
+export default {
+    computed: {
+        ...mapState("util", ["user", "isLoggedIn"]),
+    },
     methods: {
         logout() {
             axios
                 .post("/logout")
                 .then((res) => {
                     console.log("logout");
+                    this.$store.commit("util/setUser", null);
+                    this.$store.commit("util/setLogin", false);
                     this.$router.push({ name: "login" });
                 })
                 .catch((err) => {
-                    console.log("err");
+                    console.log(err);
                 });
         },
     },

@@ -1,5 +1,6 @@
 <template>
     <v-container fluid>
+        <!-- {{ user.id }} -->
         <v-card tile :elevation="1" width="750" class="mx-auto p-2">
             <Datepicker
                 v-model="defaultDate"
@@ -62,20 +63,18 @@
 import Datepicker from "vuejs-datepicker";
 import moment from "moment";
 import EditModal from "./EditModal.vue";
+import { mapState } from "vuex";
 
 export default {
     components: {
         Datepicker,
         EditModal,
     },
-
     props: {
         userId: {
-            type: String,
-            required: true,
+            type: Number,
         },
     },
-
     data() {
         return {
             defaultDate: new Date(),
@@ -164,6 +163,7 @@ export default {
                 return moment(task.created_at).format("YYYY-MM-DD") === date;
             });
         },
+        ...mapState("util", ["user", "isLoggedIn"]),
     },
 
     created() {

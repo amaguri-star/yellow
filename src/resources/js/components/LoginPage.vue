@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card width="400px" class="mx-auto mt-5">
+        <v-card width="450px" class="mx-auto mt-5">
             <v-card-title>
                 <h1 class="display-1">ログイン</h1>
             </v-card-title>
@@ -54,8 +54,7 @@ export default {
                         password: this.password,
                     })
                     .then((res) => {
-                        console.log("logged in");
-                        this.$router.push({ name: "task.list" });
+                        console.log(res.data);
                     })
                     .catch((res) => {
                         console.log(res);

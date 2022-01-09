@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckUserLoginStateController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/me', MeController::class);
 });
 
+Route::get('/authCheck', CheckUserLoginStateController::class);
 Route::get('/user/{user_id}/tasks', [TaskController::class, 'index']);
 Route::post('/user/{user_id}/tasks', [TaskController::class, 'store']);
 Route::put('/user/{user_id}/tasks/{task_id}', [TaskController::class, 'update']);

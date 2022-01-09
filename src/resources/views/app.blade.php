@@ -19,10 +19,9 @@
 <body>
     <div id="app">
         <v-app>
-            <side-bar :is-logged-in="{{ Auth::check() ? 'true' : 'false' }}"
-                username="{{ Auth::check() ? Auth::user()->name : 'unauthenticate user' }}"></side-bar>
+            <side-bar></side-bar>
             <v-main>
-                <router-view user-id="{{ Auth::id() }}"></router-view>
+                <router-view user-id={{ Auth::check() ? Auth::id() : null }}></router-view>
             </v-main>
         </v-app>
     </div>
