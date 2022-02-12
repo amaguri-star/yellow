@@ -65,7 +65,7 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
-        return redirect()->intended('/');
+        return redirect('/');
     }
 
     protected function sendFailedLoginResponse(Request $request)
@@ -88,7 +88,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     protected function guard()

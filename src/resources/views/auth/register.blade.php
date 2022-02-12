@@ -9,7 +9,7 @@
                 <div class="card-body text-center">
                     <h2 class="card-title">サインアップ</h2>
                     <hr>
-                    @include('error_card_list')
+                    {{-- @include('error_card_list') --}}
                     <div class="card-text">
                         <form action="{{ route('auth.register') }}" method="POST">
                             @csrf

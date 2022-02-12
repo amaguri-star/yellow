@@ -8,14 +8,16 @@
 
                 <v-list-item-content>
                     <v-list-item-title v-text="user.name"></v-list-item-title>
-                    <v-list-item-subtitle v-text="user.email"></v-list-item-subtitle>
+                    <v-list-item-subtitle
+                        v-text="user.email"
+                    ></v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </template>
 
         <v-divider></v-divider>
 
-        <v-list v-if="isLoggedIn" dense>
+        <v-list dense>
             <v-list-item>
                 <v-list-item-icon>
                     <v-icon>mdi-home-city-outline</v-icon>
@@ -66,35 +68,18 @@
                 </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="logout">
+            <v-list-item>
                 <v-list-item-icon>
                     <v-icon>mdi-logout</v-icon>
                 </v-list-item-icon>
 
                 <v-list-item-content>
-                    <v-list-item-title>Logout</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-        </v-list>
-
-        <v-list v-else>
-            <v-list-item :to="{ name: 'signin' }">
-                <v-list-item-icon>
-                    <v-icon>mdi-account-plus-outline</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                    <v-list-item-title>Signin</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item :to="{ name: 'login' }">
-                <v-list-item-icon>
-                    <v-icon>mdi-login</v-icon>
-                </v-list-item-icon>
-
-                <v-list-item-content>
-                    <v-list-item-title>Login</v-list-item-title>
+                    <form action="/logout" method="POST">
+                        <input type="hidden" name="_token" :value="csrf" />
+                        <button>
+                            <v-list-item-title>Logout</v-list-item-title>
+                        </button>
+                    </form>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -102,25 +87,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-    computed: {
-        ...mapState("util", ["user", "isLoggedIn"]),
+    props: {
+        user: Object,
+    },
+    data: function () {
+        return {
+            csrf: document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
+        };
     },
     methods: {
         logout() {
-            axios
-                .post("/logout")
-                .then((res) => {
-                    console.log("logout");
-                    this.$store.commit("util/setUser", null);
-                    this.$store.commit("util/setLogin", false);
-                    this.$router.push({ name: "login" });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            axios.post("/logout");
         },
     },
 };

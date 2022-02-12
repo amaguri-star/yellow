@@ -1,6 +1,5 @@
 <template>
     <v-container fluid>
-        <!-- {{ user.id }} -->
         <v-card tile :elevation="1" width="750" class="mx-auto p-2">
             <Datepicker
                 v-model="defaultDate"
@@ -11,7 +10,7 @@
 
             <v-text-field
                 :rules="rules"
-                @keypress.enter.prevent="createTask"
+                @keypress.enter.once="createTask"
                 @click:append="createTask"
                 v-model="newTaskText"
                 label="Enter New Task"
@@ -35,7 +34,7 @@
                         </v-btn>
                     </v-list-item-icon>
                     <v-list-item-icon>
-                        <v-btn icon @click.prevent="deleteTask(task.id)">
+                        <v-btn icon @click.once="deleteTask(task.id)">
                             <v-icon>mdi-trash-can-outline</v-icon>
                         </v-btn>
                     </v-list-item-icon>
@@ -52,7 +51,7 @@
             </template>
             <template slot="footer">
                 <button @click="closeEditModal">Close</button>
-                <button @click="editTask">Send</button>
+                <button @click.once="editTask">Send</button>
             </template>
             <!-- /footer -->
         </EditModal>
@@ -63,7 +62,6 @@
 import Datepicker from "vuejs-datepicker";
 import moment from "moment";
 import EditModal from "./EditModal.vue";
-import { mapState } from "vuex";
 
 export default {
     components: {
@@ -71,9 +69,7 @@ export default {
         EditModal,
     },
     props: {
-        userId: {
-            type: Number,
-        },
+        user: Object,
     },
     data() {
         return {
@@ -111,13 +107,13 @@ export default {
             this.modal = false;
         },
         getTasks() {
-            axios.get("/api/user/" + this.userId + "/tasks").then((res) => {
+            axios.get("/api/user/" + this.user.id + "/tasks").then((res) => {
                 this.tasks = res.data;
             });
         },
         createTask() {
             axios
-                .post("/api/user/" + this.userId + "/tasks", {
+                .post("/api/user/" + this.user.id + "/tasks", {
                     text: this.newTaskText,
                 })
                 .then((res) => {
@@ -131,7 +127,7 @@ export default {
         editTask() {
             axios
                 .put(
-                    "/api/user/" + this.userId + "/tasks/" + this.editTaskId,
+                    "/api/user/" + this.user.id + "/tasks/" + this.editTaskId,
                     {
                         text: this.editTaskText,
                     }
@@ -146,7 +142,7 @@ export default {
         },
         deleteTask(taskId) {
             axios
-                .delete("/api/user/" + this.userId + "/tasks/" + taskId)
+                .delete("/api/user/" + this.user.id + "/tasks/" + taskId)
                 .then((res) => {
                     this.getTasks();
                 })
@@ -163,7 +159,6 @@ export default {
                 return moment(task.created_at).format("YYYY-MM-DD") === date;
             });
         },
-        ...mapState("util", ["user", "isLoggedIn"]),
     },
 
     created() {

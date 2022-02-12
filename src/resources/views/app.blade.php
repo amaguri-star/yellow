@@ -19,10 +19,15 @@
 <body>
     <div id="app">
         <v-app>
-            <side-bar></side-bar>
-            <v-main>
-                <router-view user-id={{ Auth::check() ? Auth::id() : null }}></router-view>
-            </v-main>
+            @Auth
+                <v-main>
+                    <side-bar :user={{ Auth::user() }}></side-bar>
+                    <router-view :user={{ Auth::user() }}></router-view>
+                </v-main>
+            @endauth
+            @guest
+                @yield('content')
+            @endguest
         </v-app>
     </div>
     <!-- script -->

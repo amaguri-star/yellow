@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::post('/login', [CookieAuthenticationController::class, 'login']);
-Route::post('/logout', [CookieAuthenticationController::class, 'logout']);
 
 // RegisterController
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('auth.register')->middleware('guest');
@@ -26,9 +24,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('auth.re
 
 // LoginController
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login')->middleware('guest');
-// Route::post('/login', [LoginController::class, 'login'])->name('auth.login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'login'])->name('auth.login')->middleware('guest');
 // LoginController->logout
-// Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout')->middleware('auth');
+Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout')->middleware('auth');
 
 // ForgotController
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showEmailForm'])->name('password.request')->middleware('guest');
@@ -38,4 +36,4 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'ResetPassword'
 
 Route::get('/{any}', function () {
     return view('app');
-})->where('any', '.*');
+})->where('any', '.*')->middleware('auth');
