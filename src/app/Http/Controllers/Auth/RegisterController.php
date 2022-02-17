@@ -34,6 +34,6 @@ class RegisterController extends Controller
 
         Auth::guard()->login($user);
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 }

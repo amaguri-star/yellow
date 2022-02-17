@@ -36,4 +36,4 @@ Route::post('/reset-password', [ForgotPasswordController::class, 'ResetPassword'
 
 Route::get('/{any}', function () {
     return view('app');
-})->where('any', '.*');
+})->where('any', '.*')->middleware('auth');
